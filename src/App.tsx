@@ -1,21 +1,16 @@
 import { ThemeProvider } from "styled-components";
-import { MainDivContainer } from "./App.styles";
-import { Button } from "./components/Button";
+import { BrowserRouter } from "react-router-dom";
 import { defaultThemes } from "./styles/themes/default";
 import { GlobalStyle } from "./styles/themes/global";
+import { Router } from "./Router";
 
 export function App() {
   return (
-    <MainDivContainer>
-      <ThemeProvider theme={defaultThemes}>
-        <Button bgColor="primary" />
-        <Button bgColor="secondary" />
-        <Button bgColor="danger" />
-        <Button bgColor="success" />
-        <Button />
-
-        <GlobalStyle />
-      </ThemeProvider>
-    </MainDivContainer>
+    <ThemeProvider theme={defaultThemes}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+      <GlobalStyle />
+    </ThemeProvider>
   );
 }
