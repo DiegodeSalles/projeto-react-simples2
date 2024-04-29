@@ -1,9 +1,10 @@
 export const defaultThemes = {
   white: "#fff",
 
-  "navy-900": "#113f67",
-  "navy-700": "#226597",
-  "navy-400": "#87c0cd",
+  "navy-900": "#081f34",
+  "navy-800": "#113f67",
+  "navy-700": "#0d355a",
+  "navy-500": "#124b80",
   "cold-100": "#f3f9fb",
 
   "slate-900": "#0f172a",
