@@ -2,8 +2,9 @@ export const defaultThemes = {
   white: "#fff",
 
   "navy-900": "#081f34",
-  "navy-800": "#113f67",
+  "navy-800": "#0b2b49",
   "navy-700": "#0d355a",
+  "navy-600": "#113f67",
   "navy-500": "#124b80",
   "cold-100": "#f3f9fb",
 
@@ -23,6 +24,6 @@ export const defaultThemes = {
   "orange-300": "#FFB280",
   "orange-500": "#FF7730",
 
-  "red-600": "#C40C0C",
+  "red-500": "#C40C0C",
   "red-400": "#FF6500",
 };
