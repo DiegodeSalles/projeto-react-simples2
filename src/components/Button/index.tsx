@@ -1,4 +1,4 @@
-import { ButtonContainer, ButtonBgColors } from "./Button.styles";
+import { ButtonContainer, ButtonBgColors } from "./styles";
 
 interface ButtonProps {
   bgColor?: ButtonBgColors;

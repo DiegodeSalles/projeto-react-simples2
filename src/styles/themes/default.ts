@@ -25,5 +25,5 @@ export const defaultThemes = {
   "orange-500": "#FF7730",
 
   "red-500": "#C40C0C",
-  "red-400": "#FF6500",
+  "red-400": "#ff4a51",
 };
