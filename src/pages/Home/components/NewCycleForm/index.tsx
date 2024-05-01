@@ -1,18 +1,8 @@
 import { FormContainer, MinutesAmountInput, TaskInput } from "./styles";
 import { useContext } from "react";
-import { CyclesContext } from "../..";
+import { CyclesContext } from "../../../../contexts/CyclesContext";
 import { useFormContext } from "react-hook-form";
-import { z } from "zod";
 
-export type NewCycleFormData = z.infer<typeof newCycleFormValidationSchema>;
-
-export const newCycleFormValidationSchema = z.object({
-  task: z.string().min(1, "Informe a tarefa"),
-  minutesAmount: z
-    .number()
-    .min(1, "O ciclo precisa ser de no mínimo 5 minutos")
-    .max(60, "O ciclo precisa ser de no máximo 60 minutos"),
-});
 export function NewCycleForm() {
   const { activeCycle } = useContext(CyclesContext);
   const { register } = useFormContext();
@@ -41,7 +31,7 @@ export function NewCycleForm() {
         id="minutesAmount"
         placeholder="05"
         disabled={!!activeCycle}
-        min={1}
+        min={5}
         max={60}
         step={5}
         {...register("minutesAmount", { valueAsNumber: true })}
