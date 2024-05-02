@@ -1,9 +1,17 @@
-import { ReactNode, createContext, useReducer, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { Cycle, cyclesReducer } from "../reducers/cycles/reducer";
 import {
   addNewCycleAction,
   interruptCurrentCycleAction,
+  markCurrentCycleAsFinishedAction,
 } from "../reducers/cycles/actions";
+import { differenceInSeconds } from "date-fns";
 
 interface CreateCycleData {
   task: string;
@@ -25,21 +33,43 @@ interface CyclesContextProviderProps {
   children: ReactNode;
 }
 
+const localStorageName = "@pomodoritos:cycles-state-1.0.0";
+
 export const CyclesContext = createContext({} as CyclesContextType);
 
 export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
-  const [cyclesState, dispatch] = useReducer(cyclesReducer, {
-    cycles: [],
-    activeCycleId: null,
-  });
+  const [cyclesState, dispatch] = useReducer(
+    cyclesReducer,
+    {
+      cycles: [],
+      activeCycleId: null,
+    },
+    (initialState) => {
+      const storedStateAsJSON = localStorage.getItem(localStorageName);
 
-  const [amountSecondsElapsed, setAmountSecondsElapsed] = useState(0);
+      if (storedStateAsJSON) return JSON.parse(storedStateAsJSON);
+
+      return initialState;
+    }
+  );
 
   const { cycles, activeCycleId } = cyclesState;
-
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
+
+  const [amountSecondsElapsed, setAmountSecondsElapsed] = useState(() => {
+    if (activeCycle) {
+      return differenceInSeconds(new Date(), new Date(activeCycle.startDate));
+    }
+    return 0;
+  });
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cyclesState);
+
+    localStorage.setItem(localStorageName, stateJSON);
+  }, [cyclesState]);
 
   function setSecondsPassed(seconds: number) {
     setAmountSecondsElapsed(seconds);
@@ -64,7 +94,7 @@ export function CyclesContextProvider({
   }
 
   function markCurrentCycleAsFinished() {
-    dispatch(markCurrentCycleAsFinished());
+    dispatch(markCurrentCycleAsFinishedAction());
   }
 
   return (
